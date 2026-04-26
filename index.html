@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kündigungsgenerator - Kostenlose Kündigungsvorlagen sofort erstellen</title>
+    <meta name="description" content="Erstellen Sie kostenlos und sofort Ihre Kündigung für Handyvertrag, Strom, Fitnessstudio & mehr. Keine Anmeldung nötig. Einfach ausfüllen, Vorschau ansehen & drucken.">
+    <meta name="keywords" content="kündigungsgenerator, kündigung schreiben, kündigungsvorlage, handyvertrag kündigen, strom kündigen, fitnessstudio kündigen, kündigung muster">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kuendigungsgenerator.de/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Kündigungsgenerator - Kostenlose Kündigungsvorlagen">
+    <meta property="og:description" content="Erstellen Sie Ihre Kündigung in 30 Sekunden. Kostenlos, ohne Anmeldung.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kuendigungsgenerator.de/">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Kündigungsgenerator",
+        "description": "Kostenloser Generator für Kündigungsvorlagen",
+        "applicationCategory": "UtilityApplication",
+        "browserRequirements": "Requires JavaScript",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        }
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    <!-- AdSense Platzhalter - wird später aktiviert -->
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <span class="logo">📄 Kündigungsgenerator</span>
+                <nav class="nav">
+                    <a href="index.html">Generator</a>
+                    <a href="about.html">Impressum</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Kostenlose Kündigung in <span class="highlight">30 Sekunden</span> erstellen</h1>
+                <p class="subtitle">Wählen Sie Ihre Vertragsart, füllen Sie das Formular aus und erhalten Sie eine fertige Kündigung als PDF-Vorschau. <strong>100% kostenlos, keine Anmeldung.</strong></p>
+            </div>
+        </section>
+
+        <!-- AdSense Platzhalter -->
+        <div class="ad-container">
+            <p class="ad-label">Anzeige</p>
+            <div class="ad-placeholder">[AdSense Banner - wird später aktiviert]</div>
+        </div>
+
+        <section class="generator" id="generator">
+            <div class="container">
+                <form id="kuendigungsForm" class="form">
+                    <!-- Schritt 1: Vertragsart -->
+                    <div class="form-section">
+                        <h2>1. Wählen Sie Ihre Vertragsart</h2>
+                        <div class="vertrag-grid" id="vertragGrid">
+                            <button type="button" class="vertrag-btn" data-type="handy" onclick="selectVertrag('handy')">
+                                <span class="vertrag-icon">📱</span>
+                                <span class="vertrag-label">Handyvertrag</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="strom" onclick="selectVertrag('strom')">
+                                <span class="vertrag-icon">⚡</span>
+                                <span class="vertrag-label">Strom / Gas</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="fitness" onclick="selectVertrag('fitness')">
+                                <span class="vertrag-icon">💪</span>
+                                <span class="vertrag-label">Fitnessstudio</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="internet" onclick="selectVertrag('internet')">
+                                <span class="vertrag-icon">🌐</span>
+                                <span class="vertrag-label">Internet / DSL</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="versicherung" onclick="selectVertrag('versicherung')">
+                                <span class="vertrag-icon">🛡️</span>
+                                <span class="vertrag-label">Versicherung</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="abo" onclick="selectVertrag('abo')">
+                                <span class="vertrag-icon">📦</span>
+                                <span class="vertrag-label">Abo / Mitgliedschaft</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="miete" onclick="selectVertrag('miete')">
+                                <span class="vertrag-icon">🏠</span>
+                                <span class="vertrag-label">Mietvertrag</span>
+                            </button>
+                            <button type="button" class="vertrag-btn" data-type="sonstige" onclick="selectVertrag('sonstige')">
+                                <span class="vertrag-icon">📋</span>
+                                <span class="vertrag-label">Sonstiger Vertrag</span>
+                            </button>
+                        </div>
+                        <p class="error-message" id="vertragError">Bitte wählen Sie eine Vertragsart aus.</p>
+                    </div>
+
+                    <!-- Schritt 2: Persönliche Daten -->
+                    <div class="form-section hidden" id="step2">
+                        <h2>2. Ihre Daten</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="anrede">Anrede</label>
+                                <select id="anrede" required>
+                                    <option value="">Bitte wählen</option>
+                                    <option value="Herrn">Herr</option>
+                                    <option value="Frau">Frau</option>
+                                    <option value="Divers">Divers</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="vorname">Vorname *</label>
+                                <input type="text" id="vorname" required placeholder="Max">
+                            </div>
+                            <div class="form-group">
+                                <label for="nachname">Nachname *</label>
+                                <input type="text" id="nachname" required placeholder="Mustermann">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="strasse">Straße + Hausnr. *</label>
+                                <input type="text" id="strasse" required placeholder="Musterstraße 123">
+                            </div>
+                            <div class="form-group">
+                                <label for="plz">PLZ *</label>
+                                <input type="text" id="plz" required placeholder="12345" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="ort">Ort *</label>
+                                <input type="text" id="ort" required placeholder="Berlin">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-Mail</label>
+                            <input type="email" id="email" placeholder="max@mustermann.de">
+                        </div>
+                    </div>
+
+                    <!-- Schritt 3: Empfänger -->
+                    <div class="form-section hidden" id="step3">
+                        <h2>3. Empfänger (Firma / Vertragspartner)</h2>
+                        <div class="form-group">
+                            <label for="empfaenger">Name der Firma / des Vertragspartners *</label>
+                            <input type="text" id="empfaenger" required placeholder="z.B. Telekom Deutschland GmbH">
+                        </div>
+                        <div class="form-group">
+                            <label for="empfaenger_strasse">Straße + Hausnr. (optional)</label>
+                            <input type="text" id="empfaenger_strasse" placeholder="Musterweg 456">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empfaenger_plz">PLZ (optional)</label>
+                                <input type="text" id="empfaenger_plz" placeholder="54321" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="empfaenger_ort">Ort (optional)</label>
+                                <input type="text" id="empfaenger_ort" placeholder="München">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vertragsnummer">Vertragsnummer / Kundennummer (optional)</label>
+                            <input type="text" id="vertragsnummer" placeholder="z.B. VNR-123456789">
+                        </div>
+                    </div>
+
+                    <!-- Schritt 4: Kündigungsdetails -->
+                    <div class="form-section hidden" id="step4">
+                        <h2>4. Kündigungsdetails</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="kuendigungsdatum">Kündigungsdatum *</label>
+                                <input type="date" id="kuendigungsdatum" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="vertragsende">Frühestmögliches Vertragsende (optional)</label>
+                                <input type="date" id="vertragsende">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="grund">Kündigungsgrund (optional)</label>
+                            <select id="grund">
+                                <option value="">Keinen Grund angeben</option>
+                                <option value="Preiserhöhung">Preiserhöhung</option>
+                                <option value="Schlechter Service">Schlechter Service</option>
+                                <option value="Umzug">Umzug</option>
+                                <option value="Anbieterwechsel">Anbieterwechsel</option>
+                                <option value="Vertragsablauf">Vertragsablauf / Keine Verlängerung</option>
+                                <option value="Sonstiges">Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group hidden" id="grundSonstDiv">
+                            <label for="grundSonstig">Grund (frei)</label>
+                            <input type="text" id="grundSonstig" placeholder="Ihr Kündigungsgrund">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="sonderkuendigung">
+                                <span>Sonderkündigungsrecht (z.B. bei Preiserhöhung, Umzug)</span>
+                            </label>
+                        </div>
+                        <div class="form-group hidden" id="sonderFristDiv">
+                            <label for="sonderFrist">Außerordentliches Kündigungsdatum</label>
+                            <input type="date" id="sonderFrist">
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-section hidden" id="stepAction">
+                        <button type="submit" class="btn-generate">
+                            📄 Kündigung erstellen
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Ergebnis -->
+                <div id="ergebnis" class="hidden">
+                    <div class="ergebnis-header">
+                        <h2>📄 Ihre Kündigung</h2>
+                        <div class="ergebnis-actions">
+                            <button onclick="window.print()" class="btn-secondary">🖨️ Drucken</button>
+                            <button onclick="copyText()" class="btn-secondary">📋 Kopieren</button>
+                            <button onclick="neuErstellen()" class="btn-secondary">🔄 Neue Kündigung</button>
+                        </div>
+                    </div>
+                    <div class="brief-container" id="briefContainer">
+                        <!-- Wird dynamisch befüllt -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="container">
+                <h2>Warum unser Kündigungsgenerator?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Sofort & Kostenlos</h3>
+                        <p>Keine Anmeldung, keine Kosten. In 30 Sekunden zur fertigen Kündigung.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📋</span>
+                        <h3>Alle Vertragsarten</h3>
+                        <p>Handy, Strom, Fitness, Internet, Versicherung & viele mehr.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🔒</span>
+                        <h3>100% Privat</h3>
+                        <p>Ihre Daten verlassen nie Ihren Browser. Kein Server, keine Speicherung.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📜</span>
+                        <h3>Juristisch geprüft</h3>
+                        <p>Unsere Vorlagen basieren auf aktuellen Rechtsstandards und Mustertexten.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ für SEO -->
+        <section class="faq">
+            <div class="container">
+                <h2>Häufige Fragen zur Kündigung</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>Wie kündige ich meinen Handyvertrag?</h3>
+                        <p>Nutzen Sie unseren Generator oben. Wählen Sie "Handyvertrag", füllen Sie Ihre Daten aus und erhalten Sie eine fertige Kündigung zum Ausdrucken. Diese senden Sie per Einschreiben an Ihren Anbieter.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Ist eine Kündigung per E-Mail gültig?</h3>
+                        <p>Eine Kündigung per E-Mail ist rechtlich gültig, aber als Einschreiben sind Sie auf der sicheren Seite. Viele Anbieter akzeptieren Kündigungen auch über ein Online-Formular.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Wann muss ich kündigen?</h3>
+                        <p>Die Kündigungsfrist beträgt meist 1-3 Monate. Prüfen Sie Ihren Vertrag auf die genaue Frist. Bei Preiserhöhungen haben Sie oft ein Sonderkündigungsrecht.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Kann ich mein Fitnessstudio fristlos kündigen?</h3>
+                        <p>Ja, bei Umzug, Krankheit, Schwangerschaft oder Preiserhöhung haben Sie ein Sonderkündigungsrecht. Wählen Sie im Generator "Sonderkündigungsrecht" aus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 Kündigungsgenerator - Kostenlose Kündigungsvorlagen</p>
+                <nav class="footer-nav">
+                    <a href="about.html">Impressum & Datenschutz</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
