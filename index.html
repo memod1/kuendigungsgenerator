@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kündigungsgenerator - Kostenlose Kündigungsvorlagen sofort erstellen</title>
-    <meta name="description" content="Erstellen Sie kostenlos und sofort Ihre Kündigung für Handyvertrag, Strom, Fitnessstudio & mehr. Keine Anmeldung nötig. Einfach ausfüllen, Vorschau ansehen & drucken.">
-    <meta name="keywords" content="kündigungsgenerator, kündigung schreiben, kündigungsvorlage, handyvertrag kündigen, strom kündigen, fitnessstudio kündigen, kündigung muster">
+    <meta name="description" content="Erstellen Sie kostenlos und sofort Ihre Kündigung für Handyvertrag, Strom, Fitnessstudio, Spotify, Netflix & mehr. Keine Anmeldung nötig. Einfach ausfüllen, Vorschau ansehen & drucken.">
+    <meta name="keywords" content="kündigungsgenerator, kündigung schreiben, kündigungsvorlage, handyvertrag kündigen, strom kündigen, fitnessstudio kündigen, netflix kündigen, spotify kündigen, kündigung muster">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://memod1.github.io/kuendigungsgenerator/">
     
@@ -14,19 +14,12 @@
     <meta property="og:description" content="Erstellen Sie Ihre Kündigung in 30 Sekunden. Kostenlos, ohne Anmeldung.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://memod1.github.io/kuendigungsgenerator/">
+    <meta property="og:image" content="https://memod1.github.io/kuendigungsgenerator/og-image.png">
     
-    <!-- GOOGLE ANALYTICS – AKTUELL TEST-ID. 
-         Ersetzen mit eigener GA4-Mess-ID aus analytics.google.com
-         Oder einfach goatcounter.com für einfaches Tracking nutzen -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDE5N3H5HY"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-MDE5N3H5HY');
-    </script>
+    <!-- GoatCounter -->
+    <script data-goatcounter="https://memod.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     
-    <!-- Schema.org -->
+    <!-- Schema.org WebApplication -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -43,9 +36,69 @@
         }
     }
     </script>
+    
+    <!-- FAQ Schema für Google Rich Results -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Wie kündige ich meinen Handyvertrag?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Nutzen Sie unseren Generator oben. Wählen Sie 'Handyvertrag', füllen Sie Ihre Daten aus und erhalten Sie eine fertige Kündigung zum Ausdrucken."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Ist eine Kündigung per E-Mail gültig?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja, eine Kündigung per E-Mail ist rechtlich gültig. Per Einschreiben sind Sie aber auf der sicheren Seite."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Wie kündige ich Netflix oder Spotify?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Wählen Sie im Generator 'Abo kündigen' und geben Sie den Anbieternamen ein. Der Generator erstellt eine formale Kündigung, die Sie per E-Mail oder Post versenden können."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Kann ich mein Fitnessstudio fristlos kündigen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja, bei Umzug, Krankheit, Schwangerschaft oder Preiserhöhung haben Sie ein Sonderkündigungsrecht."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Was kostet der Kündigungsgenerator?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Der Generator ist komplett kostenlos. Keine Anmeldung, keine versteckten Kosten."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Kündigungsgenerator", "item": "https://memod1.github.io/kuendigungsgenerator/"}
+        ]
+    }
+    </script>
 
     <link rel="stylesheet" href="styles.css">
-    <!-- AdSense Platzhalter - wird später aktiviert -->
 </head>
 <body>
     <header class="header">
@@ -55,6 +108,7 @@
                 <nav class="nav">
                     <a href="index.html">Generator</a>
                     <a href="about.html">Impressum</a>
+                    <button id="darkToggle" class="dark-toggle" aria-label="Dark Mode umschalten">🌙</button>
                 </nav>
             </div>
         </div>
@@ -63,61 +117,95 @@
     <main>
         <section class="hero">
             <div class="container">
+                <div class="hero-badge">⚡ 100% kostenlos · Keine Anmeldung</div>
                 <h1>Kostenlose Kündigung in <span class="highlight">30 Sekunden</span> erstellen</h1>
-                <p class="subtitle">Wählen Sie Ihre Vertragsart, füllen Sie das Formular aus und erhalten Sie eine fertige Kündigung als PDF-Vorschau. <strong>100% kostenlos, keine Anmeldung.</strong></p>
+                <p class="subtitle">Wählen Sie Ihre Vertragsart, füllen Sie das Formular aus und erhalten Sie eine fertige Kündigung als PDF. <strong>Keine Anmeldung, kein Stress.</strong></p>
             </div>
         </section>
 
-        <!-- AdSense Platzhalter -->
-        <div class="ad-container">
-            <p class="ad-label">Anzeige</p>
-            <div class="ad-placeholder">[AdSense Banner - wird später aktiviert]</div>
+        <!-- Fortschrittsbalken -->
+        <div class="progress-bar-container" id="progressBar">
+            <div class="progress-steps">
+                <div class="prog-step" data-step="1"><span class="prog-num">1</span> Vertragsart</div>
+                <div class="prog-step" data-step="2"><span class="prog-num">2</span> Daten</div>
+                <div class="prog-step" data-step="3"><span class="prog-num">3</span> Empfänger</div>
+                <div class="prog-step" data-step="4"><span class="prog-num">4</span> Details</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
         </div>
 
         <section class="generator" id="generator">
             <div class="container">
-                <form id="kuendigungsForm" class="form">
-                    <!-- Schritt 1: Vertragsart -->
-                    <div class="form-section">
-                        <h2>1. Wählen Sie Ihre Vertragsart</h2>
-                        <div class="vertrag-grid" id="vertragGrid">
-                            <button type="button" class="vertrag-btn" data-type="handy" onclick="selectVertrag('handy')">
-                                <span class="vertrag-icon">📱</span>
-                                <span class="vertrag-label">Handyvertrag</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="strom" onclick="selectVertrag('strom')">
-                                <span class="vertrag-icon">⚡</span>
-                                <span class="vertrag-label">Strom / Gas</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="fitness" onclick="selectVertrag('fitness')">
-                                <span class="vertrag-icon">💪</span>
-                                <span class="vertrag-label">Fitnessstudio</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="internet" onclick="selectVertrag('internet')">
-                                <span class="vertrag-icon">🌐</span>
-                                <span class="vertrag-label">Internet / DSL</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="versicherung" onclick="selectVertrag('versicherung')">
-                                <span class="vertrag-icon">🛡️</span>
-                                <span class="vertrag-label">Versicherung</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="abo" onclick="selectVertrag('abo')">
-                                <span class="vertrag-icon">📦</span>
-                                <span class="vertrag-label">Abo / Mitgliedschaft</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="miete" onclick="selectVertrag('miete')">
-                                <span class="vertrag-icon">🏠</span>
-                                <span class="vertrag-label">Mietvertrag</span>
-                            </button>
-                            <button type="button" class="vertrag-btn" data-type="sonstige" onclick="selectVertrag('sonstige')">
-                                <span class="vertrag-icon">📋</span>
-                                <span class="vertrag-label">Sonstiger Vertrag</span>
-                            </button>
-                        </div>
-                        <p class="error-message" id="vertragError">Bitte wählen Sie eine Vertragsart aus.</p>
+                <div id="vertragCarousel" class="vertrag-carousel">
+                    <button class="carousel-btn prev" id="carouselPrev" aria-label="Vorherige">‹</button>
+                    <div class="vertrag-grid" id="vertragGrid">
+                        <button type="button" class="vertrag-btn" data-type="handy" onclick="selectVertrag('handy')">
+                            <span class="vertrag-icon">📱</span>
+                            <span class="vertrag-label">Handyvertrag</span>
+                        </button>
+                        <button type="button" class="vertrag-btn" data-type="strom" onclick="selectVertrag('strom')">
+                            <span class="vertrag-icon">⚡</span>
+                            <span class="vertrag-label">Strom / Gas</span>
+                        </button>
+                        <button type="button" class="vertrag-btn" data-type="internet" onclick="selectVertrag('internet')">
+                            <span class="vertrag-icon">🌐</span>
+                            <span class="vertrag-label">Internet / DSL</span>
+                        </button>
+                        <button type="button" class="vertrag-btn" data-type="fitness" onclick="selectVertrag('fitness')">
+                            <span class="vertrag-icon">💪</span>
+                            <span class="vertrag-label">Fitnessstudio</span>
+                        </button>
+                        <button type="button" class="vertrag-btn" data-type="versicherung" onclick="selectVertrag('versicherung')">
+                            <span class="vertrag-icon">🛡️</span>
+                            <span class="vertrag-label">Versicherung</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="abo" onclick="selectVertrag('abo')">
+                            <span class="vertrag-icon">📦</span>
+                            <span class="vertrag-label">Abo kündigen</span>
+                            <span class="vertrag-badge">Netflix, Spotify +</span>
+                        </button>
+                        <button type="button" class="vertrag-btn" data-type="miete" onclick="selectVertrag('miete')">
+                            <span class="vertrag-icon">🏠</span>
+                            <span class="vertrag-label">Mietvertrag</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="kreditkarte" onclick="selectVertrag('kreditkarte')">
+                            <span class="vertrag-icon">💳</span>
+                            <span class="vertrag-label">Kreditkarte</span>
+                            <span class="vertrag-badge">Neu</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="gez" onclick="selectVertrag('gez')">
+                            <span class="vertrag-icon">📺</span>
+                            <span class="vertrag-label">GEZ / Rundfunk</span>
+                            <span class="vertrag-badge">Neu</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="mobilfunk" onclick="selectVertrag('mobilfunk')">
+                            <span class="vertrag-icon">📶</span>
+                            <span class="vertrag-label">Mobilfunk</span>
+                            <span class="vertrag-badge">Neu</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="dazn" onclick="selectVertrag('dazn')">
+                            <span class="vertrag-icon">⚽</span>
+                            <span class="vertrag-label">DAZN / Sport</span>
+                            <span class="vertrag-badge">Neu</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="zeitung" onclick="selectVertrag('zeitung')">
+                            <span class="vertrag-icon">📰</span>
+                            <span class="vertrag-label">Zeitung / Abo</span>
+                            <span class="vertrag-badge">Neu</span>
+                        </button>
+                        <button type="button" class="vertrag-btn vertrag-new" data-type="strom" onclick="selectVertrag('strom')" style="display:none">
+                            <!-- Platzhalter für 2. Reihe -->
+                        </button>
+                        <button type="button" class="vertrag-btn" data-type="sonstige" onclick="selectVertrag('sonstige')">
+                            <span class="vertrag-icon">📋</span>
+                            <span class="vertrag-label">Sonstiger Vertrag</span>
+                        </button>
                     </div>
+                    <button class="carousel-btn next" id="carouselNext" aria-label="Nächste">›</button>
+                </div>
+                <p class="error-message" id="vertragError">Bitte wählen Sie eine Vertragsart aus.</p>
 
-                    <!-- Schritt 2: Persönliche Daten -->
+                <form id="kuendigungsForm" class="form">
                     <div class="form-section hidden" id="step2">
                         <h2>2. Ihre Daten</h2>
                         <div class="form-row">
@@ -146,7 +234,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="plz">PLZ *</label>
-                                <input type="text" id="plz" required placeholder="12345" maxlength="5">
+                                <input type="text" id="plz" required placeholder="12345" maxlength="5" pattern="[0-9]{5}" inputmode="numeric">
                             </div>
                             <div class="form-group">
                                 <label for="ort">Ort *</label>
@@ -159,34 +247,32 @@
                         </div>
                     </div>
 
-                    <!-- Schritt 3: Empfänger -->
                     <div class="form-section hidden" id="step3">
                         <h2>3. Empfänger (Firma / Vertragspartner)</h2>
                         <div class="form-group">
-                            <label for="empfaenger">Name der Firma / des Vertragspartners *</label>
+                            <label for="empfaenger">Name der Firma *</label>
                             <input type="text" id="empfaenger" required placeholder="z.B. Telekom Deutschland GmbH">
                         </div>
                         <div class="form-group">
-                            <label for="empfaenger_strasse">Straße + Hausnr. (optional)</label>
+                            <label for="empfaenger_strasse">Straße + Hausnr.</label>
                             <input type="text" id="empfaenger_strasse" placeholder="Musterweg 456">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="empfaenger_plz">PLZ (optional)</label>
+                                <label for="empfaenger_plz">PLZ</label>
                                 <input type="text" id="empfaenger_plz" placeholder="54321" maxlength="5">
                             </div>
                             <div class="form-group">
-                                <label for="empfaenger_ort">Ort (optional)</label>
+                                <label for="empfaenger_ort">Ort</label>
                                 <input type="text" id="empfaenger_ort" placeholder="München">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="vertragsnummer">Vertragsnummer / Kundennummer (optional)</label>
+                            <label for="vertragsnummer">Vertrags-Nr. / Kundennummer</label>
                             <input type="text" id="vertragsnummer" placeholder="z.B. VNR-123456789">
                         </div>
                     </div>
 
-                    <!-- Schritt 4: Kündigungsdetails -->
                     <div class="form-section hidden" id="step4">
                         <h2>4. Kündigungsdetails</h2>
                         <div class="form-row">
@@ -195,12 +281,12 @@
                                 <input type="date" id="kuendigungsdatum" required>
                             </div>
                             <div class="form-group">
-                                <label for="vertragsende">Frühestmögliches Vertragsende (optional)</label>
+                                <label for="vertragsende">Frühestmögliches Ende</label>
                                 <input type="date" id="vertragsende">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="grund">Kündigungsgrund (optional)</label>
+                            <label for="grund">Kündigungsgrund</label>
                             <select id="grund">
                                 <option value="">Keinen Grund angeben</option>
                                 <option value="Preiserhöhung">Preiserhöhung</option>
@@ -208,6 +294,8 @@
                                 <option value="Umzug">Umzug</option>
                                 <option value="Anbieterwechsel">Anbieterwechsel</option>
                                 <option value="Vertragsablauf">Vertragsablauf / Keine Verlängerung</option>
+                                <option value="Kostengründe">Kostengründe / Sparen</option>
+                                <option value="Nicht genutzt">Nicht mehr genutzt</option>
                                 <option value="Sonstiges">Sonstiges</option>
                             </select>
                         </div>
@@ -218,7 +306,7 @@
                         <div class="form-group">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="sonderkuendigung">
-                                <span>Sonderkündigungsrecht (z.B. bei Preiserhöhung, Umzug)</span>
+                                <span>Sonderkündigungsrecht (z.B. bei Preiserhöhung)</span>
                             </label>
                         </div>
                         <div class="form-group hidden" id="sonderFristDiv">
@@ -227,32 +315,31 @@
                         </div>
                     </div>
 
-                    <!-- Button -->
                     <div class="form-section hidden" id="stepAction">
-                        <button type="submit" class="btn-generate">
+                        <button type="submit" class="btn-generate" id="btnGenerate">
                             📄 Kündigung erstellen
                         </button>
                     </div>
                 </form>
 
-                <!-- Ergebnis -->
                 <div id="ergebnis" class="hidden">
                     <div class="ergebnis-header">
                         <h2>📄 Ihre Kündigung</h2>
                         <div class="ergebnis-actions">
+                            <button onclick="downloadPDF()" class="btn-primary">📥 PDF herunterladen</button>
                             <button onclick="window.print()" class="btn-secondary">🖨️ Drucken</button>
                             <button onclick="copyText()" class="btn-secondary">📋 Kopieren</button>
                             <button onclick="neuErstellen()" class="btn-secondary">🔄 Neue Kündigung</button>
                         </div>
                     </div>
-                    <div class="brief-container" id="briefContainer">
-                        <!-- Wird dynamisch befüllt -->
+                    <div class="ergebnis-tipp">
+                        💡 <strong>Tipp:</strong> Per <strong>Einschreiben</strong> versenden für rechtliche Sicherheit. Oder per E-Mail mit Lesebestätigung.
                     </div>
+                    <div class="brief-container" id="briefContainer"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Features -->
         <section class="features">
             <div class="container">
                 <h2>Warum unser Kündigungsgenerator?</h2>
@@ -265,7 +352,7 @@
                     <div class="feature-card">
                         <span class="feature-icon">📋</span>
                         <h3>Alle Vertragsarten</h3>
-                        <p>Handy, Strom, Fitness, Internet, Versicherung & viele mehr.</p>
+                        <p>Handy, Strom, Fitness, Netflix, Spotify, GEZ & viele mehr.</p>
                     </div>
                     <div class="feature-card">
                         <span class="feature-icon">🔒</span>
@@ -275,32 +362,35 @@
                     <div class="feature-card">
                         <span class="feature-icon">📜</span>
                         <h3>Juristisch geprüft</h3>
-                        <p>Unsere Vorlagen basieren auf aktuellen Rechtsstandards und Mustertexten.</p>
+                        <p>Unsere Vorlagen basieren auf aktuellen Rechtsstandards.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ für SEO -->
         <section class="faq">
             <div class="container">
                 <h2>Häufige Fragen zur Kündigung</h2>
                 <div class="faq-list">
                     <div class="faq-item">
                         <h3>Wie kündige ich meinen Handyvertrag?</h3>
-                        <p>Nutzen Sie unseren Generator oben. Wählen Sie "Handyvertrag", füllen Sie Ihre Daten aus und erhalten Sie eine fertige Kündigung zum Ausdrucken. Diese senden Sie per Einschreiben an Ihren Anbieter.</p>
+                        <p>Nutzen Sie unseren Generator. Wählen Sie "Handyvertrag", füllen Sie Ihre Daten aus und erhalten Sie eine fertige Kündigung zum Ausdrucken. Per Einschreiben an Ihren Anbieter senden.</p>
                     </div>
                     <div class="faq-item">
                         <h3>Ist eine Kündigung per E-Mail gültig?</h3>
-                        <p>Eine Kündigung per E-Mail ist rechtlich gültig, aber als Einschreiben sind Sie auf der sicheren Seite. Viele Anbieter akzeptieren Kündigungen auch über ein Online-Formular.</p>
+                        <p>Ja, rechtlich gültig. Per Einschreiben sind Sie aber auf der sicheren Seite.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>Wann muss ich kündigen?</h3>
-                        <p>Die Kündigungsfrist beträgt meist 1-3 Monate. Prüfen Sie Ihren Vertrag auf die genaue Frist. Bei Preiserhöhungen haben Sie oft ein Sonderkündigungsrecht.</p>
+                        <h3>Wie kündige ich Netflix oder Spotify?</h3>
+                        <p>Wählen Sie "Abo kündigen" und geben Sie den Anbieternamen ein. Per E-Mail an den Support senden.</p>
                     </div>
                     <div class="faq-item">
                         <h3>Kann ich mein Fitnessstudio fristlos kündigen?</h3>
-                        <p>Ja, bei Umzug, Krankheit, Schwangerschaft oder Preiserhöhung haben Sie ein Sonderkündigungsrecht. Wählen Sie im Generator "Sonderkündigungsrecht" aus.</p>
+                        <p>Ja, bei Umzug, Krankheit oder Preiserhöhung haben Sie ein Sonderkündigungsrecht.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Wie kündige ich GEZ / Rundfunkbeitrag?</h3>
+                        <p>Wählen Sie "GEZ / Rundfunk". Der Generator erstellt ein formloses Kündigungsschreiben.</p>
                     </div>
                 </div>
             </div>
@@ -318,6 +408,10 @@
         </div>
     </footer>
 
+    <!-- html2pdf.js + jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

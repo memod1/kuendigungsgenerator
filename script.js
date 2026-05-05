@@ -1,47 +1,87 @@
 /* ========================================
-   Kündigungsgenerator - JavaScript
+   Kündigungsgenerator - JavaScript v2.0
    ======================================== */
 
 let selectedVertrag = null;
 let heute = new Date().toISOString().split('T')[0];
-document.getElementById('kuendigungsdatum').min = heute;
+const kuendDatum = document.getElementById('kuendigungsdatum');
+if (kuendDatum) { kuendDatum.min = heute; }
 
-// Event-Listener für Grund-Auswahl
+// ========================================
+// EVENT LISTENER
+// ========================================
 document.getElementById('grund').addEventListener('change', function() {
     document.getElementById('grundSonstDiv').classList.toggle('hidden', this.value !== 'Sonstiges');
 });
-
-// Event-Listener für Sonderkündigung
 document.getElementById('sonderkuendigung').addEventListener('change', function() {
     document.getElementById('sonderFristDiv').classList.toggle('hidden', !this.checked);
 });
 
-// Vertragsart auswählen
+// ========================================
+// DARK MODE
+// ========================================
+const darkToggle = document.getElementById('darkToggle');
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark');
+    darkToggle.textContent = '☀️';
+}
+darkToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('darkMode', isDark);
+    darkToggle.textContent = isDark ? '☀️' : '🌙';
+});
+
+// ========================================
+// VERTRAGSART
+// ========================================
 function selectVertrag(type) {
-    // Remove active from all
     document.querySelectorAll('.vertrag-btn').forEach(b => b.classList.remove('active'));
-    // Add active to selected
     const btn = document.querySelector(`.vertrag-btn[data-type="${type}"]`);
     if (btn) btn.classList.add('active');
-    
     selectedVertrag = type;
     document.getElementById('vertragError').style.display = 'none';
-    
-    // Show steps
     showSteps();
 }
 
-// Nächste Schritte anzeigen
 function showSteps() {
     if (selectedVertrag) {
         document.getElementById('step2').classList.remove('hidden');
         document.getElementById('step3').classList.remove('hidden');
         document.getElementById('step4').classList.remove('hidden');
         document.getElementById('stepAction').classList.remove('hidden');
+        document.getElementById('progressBar').classList.add('visible');
+        updateProgress(1);
+        setTimeout(() => { window.scrollTo({ top: document.querySelector('.form').offsetTop - 100, behavior: 'smooth' }); }, 300);
     }
 }
 
-// Vertragsname holen
+function updateProgress(step) {
+    const fill = document.getElementById('progressFill');
+    const pct = ((step) / 4) * 100;
+    fill.style.width = pct + '%';
+    document.querySelectorAll('.prog-step').forEach(el => {
+        const s = parseInt(el.dataset.step);
+        el.classList.toggle('active', s <= step);
+    });
+}
+
+// Form Step Tracking
+document.querySelectorAll('#step2 input, #step2 select').forEach(el => {
+    el.addEventListener('change', () => updateProgress(2));
+    el.addEventListener('input', () => updateProgress(2));
+});
+document.querySelectorAll('#step3 input').forEach(el => {
+    el.addEventListener('change', () => updateProgress(3));
+    el.addEventListener('input', () => updateProgress(3));
+});
+document.querySelectorAll('#step4 input, #step4 select').forEach(el => {
+    el.addEventListener('change', () => updateProgress(4));
+});
+
+// ========================================
+// VERTRAGSNAME
+// ========================================
 function getVertragName(type) {
     const names = {
         handy: 'Handyvertrag',
@@ -51,105 +91,96 @@ function getVertragName(type) {
         versicherung: 'Versicherungsvertrag',
         abo: 'Abo / Mitgliedschaft',
         miete: 'Mietvertrag',
+        kreditkarte: 'Kreditkartenvertrag',
+        gez: 'GEZ / Rundfunkbeitrag',
+        mobilfunk: 'Mobilfunkvertrag',
+        dazn: 'Sport-Streaming-Abo',
+        zeitung: 'Zeitungs-/Zeitschriften-Abo',
         sonstige: 'Vertrag'
     };
     return names[type] || 'Vertrag';
 }
 
-// Formular-Submit
+// ========================================
+// FORMULAR SUBMIT
+// ========================================
 document.getElementById('kuendigungsForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    // Validierung
     if (!selectedVertrag) {
         document.getElementById('vertragError').style.display = 'block';
+        document.getElementById('vertragError').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
-    
-    const vorname = document.getElementById('vorname').value.trim();
-    const nachname = document.getElementById('nachname').value.trim();
-    if (!vorname || !nachname) {
-        alert('Bitte geben Sie Ihren Vor- und Nachnamen ein.');
-        return;
-    }
-    
-    // Brief generieren
     generateLetter();
 });
 
 function generateLetter() {
     const vorname = document.getElementById('vorname').value.trim();
     const nachname = document.getElementById('nachname').value.trim();
+    if (!vorname || !nachname) { alert('Bitte geben Sie Ihren Vor- und Nachnamen ein.'); return; }
+
     const anrede = document.getElementById('anrede').value;
     const strasse = document.getElementById('strasse').value.trim();
     const plz = document.getElementById('plz').value.trim();
     const ort = document.getElementById('ort').value.trim();
     const email = document.getElementById('email').value.trim();
     const empfaenger = document.getElementById('empfaenger').value.trim();
-    const empfaenger_str = document.getElementById('empfaenger_strasse').value.trim();
-    const empfaenger_plz = document.getElementById('empfaenger_plz').value.trim();
-    const empfaenger_ort = document.getElementById('empfaenger_ort').value.trim();
-    const vertragsnummer = document.getElementById('vertragsnummer').value.trim();
-    const kuendigungsdatum = document.getElementById('kuendigungsdatum').value;
-    const vertragsende = document.getElementById('vertragsende').value;
+    const e_str = document.getElementById('empfaenger_strasse').value.trim();
+    const e_plz = document.getElementById('empfaenger_plz').value.trim();
+    const e_ort = document.getElementById('empfaenger_ort').value.trim();
+    const vnr = document.getElementById('vertragsnummer').value.trim();
+    const kdatum = document.getElementById('kuendigungsdatum').value;
+    const vende = document.getElementById('vertragsende').value;
     const grund = document.getElementById('grund').value;
-    const grundSonstig = document.getElementById('grundSonstig').value.trim();
-    const sonderkuendigung = document.getElementById('sonderkuendigung').checked;
-    const sonderFrist = document.getElementById('sonderFrist').value;
+    const gsonst = document.getElementById('grundSonstig').value.trim();
+    const sonder = document.getElementById('sonderkuendigung').checked;
+    const sfrist = document.getElementById('sonderFrist').value;
 
-    const vertragName = getVertragName(selectedVertrag);
+    const vName = getVertragName(selectedVertrag);
     const today = new Date();
     const ortDate = strasse ? `${ort}, den ${today.toLocaleDateString('de-DE')}` : `Den ${today.toLocaleDateString('de-DE')}`;
-    
-    // Anrede formatieren
-    const anredeFormatiert = anrede ? ['Herrn', 'Frau'].includes(anrede) ? `Sehr geehrte${anrede === 'Herrn' ? 'r' : ''} ${anrede === 'Frau' ? 'Frau' : 'Herr'} ${nachname}` : `Sehr geehrte${anrede ? 'r' : ''} ${anrede ? anrede + ' ' : ''}${nachname}` : `Sehr geehrte${['Herrn', 'Frau'].includes(anrede) ? '' : ''}`;
-    
-    // Kündigungsgrund
+
+    // Anrede
+    let anredeTxt = 'Sehr geehrte Damen und Herren,';
+    if (anrede === 'Herrn') anredeTxt = 'Sehr geehrter Herr ' + nachname + ',';
+    else if (anrede === 'Frau') anredeTxt = 'Sehr geehrte Frau ' + nachname + ',';
+    else if (anrede && anrede !== 'Herrn' && anrede !== 'Frau') anredeTxt = 'Sehr geehrte/r ' + anrede + ' ' + nachname + ',';
+
+    // Empfänger
+    let empfAdr = empfaenger;
+    if (e_str) empfAdr += '\n' + e_str;
+    if (e_plz && e_ort) empfAdr += '\n' + e_plz + ' ' + e_ort;
+
+    // Datum
+    const kDatumFmt = new Date(kdatum + 'T12:00:00').toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Grund
     let grundText = '';
-    if (sonderkuendigung) {
+    if (sonder) {
         grundText = '\n\nIch mache von meinem Sonderkündigungsrecht Gebrauch.';
-        if (grund && grund !== '') {
-            grundText += `\nGrund: ${grund === 'Sonstiges' ? grundSonstig : grund}`;
-        }
-    } else if (grund && grund !== '') {
-        grundText = `\n\nKündigungsgrund: ${grund === 'Sonstiges' ? grundSonstig : grund}`;
-    }
-    
-    // Empfänger-Adresse bauen
-    let empfaengerAdr = empfaenger;
-    if (empfaenger_str) empfaengerAdr += `\n${empfaenger_str}`;
-    if (empfaenger_plz && empfaenger_ort) empfaengerAdr += `\n${empfaenger_plz} ${empfaenger_ort}`;
-
-    // Datum formatieren
-    const kuendDatumFormatiert = new Date(kuendigungsdatum + 'T12:00:00').toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
-    
-    let vertragsendeText = '';
-    if (vertragsende) {
-        vertragsendeText = `\n\n(Mein Vertrag läuft planmäßig am ${new Date(vertragsende + 'T12:00:00').toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}. Ich bitte um Bestätigung des Beendigungszeitpunkts.)`;
+        if (grund) grundText += '\nGrund: ' + (grund === 'Sonstiges' ? gsonst : grund);
+    } else if (grund) {
+        grundText = '\n\nKündigungsgrund: ' + (grund === 'Sonstiges' ? gsonst : grund);
     }
 
-    let sonderFristText = '';
-    if (sonderkuendigung && sonderFrist) {
-        sonderFristText = `\nIch bitte um Bestätigung, dass die außerordentliche Kündigung zum nächstmöglichen Zeitpunkt, spätestens jedoch zum ${new Date(sonderFrist + 'T12:00:00').toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })} wirksam wird.`;
-    }
+    let vendeText = '';
+    if (vende) vendeText = '\n\n(Mein Vertrag läuft planmäßig am ' + new Date(vende + 'T12:00:00').toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) + '.)';
 
-    // Brief HTML
+    let sfristText = '';
+    if (sonder && sfrist) sfristText = '\nIch bitte um Bestätigung, dass die Kündigung spätestens zum ' + new Date(sfrist + 'T12:00:00').toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) + ' wirksam wird.';
+
+    const betreff = 'Kündigung meines ' + vName + (vnr ? ' (Vertrags-Nr.: ' + vnr + ')' : '');
+
     const brief = `
-        <div class="brief-container">
+        <div class="brief-content">
             <div class="brief-header">
-                <div class="brief-absender">
-                    ${vorname} ${nachname}${strasse ? `, ${strasse}` : ''}${plz && ort ? `, ${plz} ${ort}` : ''}
-                </div>
-                <div class="brief-empfaenger">
-                    ${empfaengerAdr.replace(/\n/g, '<br>')}
-                </div>
-                <div class="brief-betreff">
-                    Kündigung meines ${vertragName}${vertragsnummer ? ` (Vertrags-Nr.: ${vertragsnummer})` : ''}
-                </div>
+                <div class="brief-absender">${vorname} ${nachname}${strasse ? ', ' + strasse : ''}${plz && ort ? ', ' + plz + ' ' + ort : ''}</div>
+                <div class="brief-empfaenger">${empfAdr.replace(/\n/g, '<br>')}</div>
+                <div class="brief-betreff">${betreff}</div>
             </div>
             <div class="brief-body">
-                <p class="brief-anrede">${anredeFormatiert},</p>
-                <p>hiermit kündige ich den oben genannten ${vertragName} fristgerecht zum ${kuendDatumFormatiert}.${grundText}${vertragsendeText}${sonderFristText}</p>
+                <p class="brief-anrede">${anredeTxt}</p>
+                <p>hiermit kündige ich den oben genannten ${vName} fristgerecht zum ${kDatumFmt}.${grundText}${vendeText}${sfristText}</p>
                 <p>Bitte bestätigen Sie mir den Eingang dieser Kündigung sowie den Beendigungszeitpunkt schriftlich.</p>
             </div>
             <div class="brief-footer">
@@ -162,38 +193,61 @@ function generateLetter() {
         </div>
     `;
 
-    // Ergebnis anzeigen
-    const ergebnisDiv = document.getElementById('ergebnis');
-    const briefContainer = document.getElementById('briefContainer');
-    briefContainer.innerHTML = brief;
-    ergebnisDiv.classList.remove('hidden');
-    
-    // Zum Ergebnis scrollen
-    ergebnisDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    
-    // Formular ausblenden
+    document.getElementById('briefContainer').innerHTML = brief;
+    document.getElementById('ergebnis').classList.remove('hidden');
+    document.getElementById('ergebnis').scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.getElementById('kuendigungsForm').classList.add('hidden');
+    document.getElementById('progressBar').classList.remove('visible');
+    updateProgress(4);
 }
 
-// Text kopieren
-function copyText() {
-    const container = document.getElementById('briefContainer');
-    const text = container.textContent || container.innerText;
-    
-    navigator.clipboard.writeText(text).then(() => {
-        alert('Kündigungstext wurde kopiert!');
+// ========================================
+// PDF DOWNLOAD
+// ========================================
+function downloadPDF() {
+    const element = document.getElementById('briefContainer');
+    const btn = document.querySelector('.btn-primary');
+    const originalText = btn.textContent;
+    btn.textContent = '⏳ Generiere PDF...';
+    btn.disabled = true;
+
+    const opt = {
+        margin:       [15, 15, 15, 15],
+        filename:     'kuendigung.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save().then(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
     }).catch(() => {
-        // Fallback
-        const range = document.createRange();
-        range.selectNode(container);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand('copy');
-        alert('Kündigungstext wurde kopiert!');
+        alert('PDF-Fehler. Nutzen Sie "Drucken" als Alternative.');
+        btn.textContent = originalText;
+        btn.disabled = false;
     });
 }
 
-// Neue Kündigung
+// ========================================
+// KOPIEREN
+// ========================================
+function copyText() {
+    const text = document.getElementById('briefContainer').textContent || document.getElementById('briefContainer').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Kündigungstext wurde kopiert!');
+    }).catch(() => {
+        const range = document.createRange();
+        range.selectNode(document.getElementById('briefContainer'));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        alert('✅ Kündigungstext wurde kopiert!');
+    });
+}
+
+// ========================================
+// NEU ERSTELLEN
+// ========================================
 function neuErstellen() {
     document.getElementById('ergebnis').classList.add('hidden');
     document.getElementById('kuendigungsForm').classList.remove('hidden');
@@ -204,19 +258,19 @@ function neuErstellen() {
     document.getElementById('step4').classList.add('hidden');
     document.getElementById('stepAction').classList.add('hidden');
     document.getElementById('vertragError').style.display = 'none';
-    
-    // Formular zurücksetzen
+    document.getElementById('progressBar').classList.remove('visible');
+    document.getElementById('progressFill').style.width = '0%';
     document.getElementById('kuendigungsForm').reset();
     document.getElementById('grundSonstDiv').classList.add('hidden');
     document.getElementById('sonderFristDiv').classList.add('hidden');
-    
-    // Zum Anfang scrollen
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Aktuelles Datum als Standard
-if (document.getElementById('kuendigungsdatum')) {
+// ========================================
+// DEFAULT DATUM
+// ========================================
+if (kuendDatum) {
     const defaultDate = new Date();
     defaultDate.setMonth(defaultDate.getMonth() + 3);
-    document.getElementById('kuendigungsdatum').value = defaultDate.toISOString().split('T')[0];
+    kuendDatum.value = defaultDate.toISOString().split('T')[0];
 }
